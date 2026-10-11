@@ -1,0 +1,2860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  
+  <!-- SEO & Primary Meta Tags -->
+  <title>Chandiri Anvith Reddy | Futuristic Cyberdeck Portfolio</title>
+  <meta name="title" content="Chandiri Anvith Reddy | Futuristic Cyberdeck Portfolio">
+  <meta name="description" content="Futuristic Cyberpunk & Tactical Developer Portfolio of Chandiri Anvith Reddy - B.Tech CSE at VBIT Hyderabad. AI Enthusiast, Software & Web Developer.">
+  <meta name="keywords" content="Chandiri Anvith Reddy, Cyberpunk Portfolio, Software Developer, Web Developer, AI, Python, VBIT Hyderabad, Cyberdeck, B.Tech CSE">
+  <meta name="author" content="Chandiri Anvith Reddy">
+  <meta name="theme-color" content="#030712">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://chandirianvithreddy.dev/">
+  <meta property="og:title" content="Chandiri Anvith Reddy | Futuristic Cyberdeck Portfolio">
+  <meta property="og:description" content="Tactical HUD & Cyberdeck Portfolio of Chandiri Anvith Reddy - B.Tech CSE, Aspiring Software & Web Developer, AI Enthusiast.">
+
+  <!-- Emoji Favicon (💻) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+
+  <!-- Google Fonts: Orbitron (Headings), JetBrains Mono (Code/HUD), Inter (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       CYBERDECK HUD DESIGN SYSTEM - DARK THEME EXCLUSIVE
+       ========================================================================== */
+    :root {
+      /* Deep space black / obsidian matrix */
+      --bg-void: #02040a;
+      --bg-panel: rgba(6, 11, 25, 0.75);
+      --bg-panel-solid: #060b19;
+      --bg-surface: rgba(10, 20, 42, 0.6);
+      --bg-terminal: #040814;
+      
+      /* Neon Spectra */
+      --neon-cyan: #00f0ff;
+      --neon-cyan-glow: rgba(0, 240, 255, 0.4);
+      --neon-violet: #8b5cf6;
+      --neon-violet-glow: rgba(139, 92, 246, 0.4);
+      --neon-magenta: #ff007f;
+      --neon-magenta-glow: rgba(255, 0, 127, 0.4);
+      --neon-emerald: #00ff66;
+      --neon-amber: #ffaa00;
+
+      /* High-contrast cyber typography */
+      --text-white: #f8fafc;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --text-glow: #e2e8f0;
+
+      /* Tactical Borders & Grid Lines */
+      --border-cyber: rgba(0, 240, 255, 0.22);
+      --border-cyber-bright: rgba(0, 240, 255, 0.7);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+
+      /* Typography */
+      --font-display: 'Orbitron', -apple-system, sans-serif;
+      --font-hud: 'JetBrains Mono', monospace;
+      --font-text: 'Inter', sans-serif;
+
+      /* Measurements */
+      --header-height: 48px;
+      --nav-height: 64px;
+      --chamfer: 14px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-void);
+      color: var(--text-white);
+      font-family: var(--font-text);
+      overflow-x: hidden;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--bg-void);
+      color: var(--text-white);
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+      line-height: 1.6;
+      padding-top: calc(var(--header-height) + var(--nav-height));
+    }
+
+    /* Screen Reader Skip Link */
+    .skip-link {
+      position: absolute;
+      top: -80px;
+      left: 16px;
+      background: var(--neon-cyan);
+      color: var(--bg-void);
+      padding: 8px 16px;
+      font-family: var(--font-hud);
+      font-weight: 700;
+      z-index: 99999;
+      transition: top 0.2s ease;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      top: 10px;
+      outline: 2px solid var(--neon-magenta);
+    }
+
+    /* Custom Selection */
+    ::selection {
+      background: var(--neon-cyan);
+      color: #000;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-void);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--neon-cyan);
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--neon-cyan);
+    }
+
+    /* Focus styling */
+    :focus-visible {
+      outline: 2px solid var(--neon-cyan);
+      outline-offset: 3px;
+    }
+
+    /* ==========================================================================
+       BACKGROUND CANVAS, CRT SCANLINES & CYBER MATRIX
+       ========================================================================== */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* CRT Scanlines and Matrix Grid */
+    .crt-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      background: 
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.02), rgba(0, 0, 0, 0) 1px);
+      background-size: 100% 4px, 60px 100%;
+      opacity: 0.85;
+    }
+
+    .ambient-glow-mesh {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(140px);
+      opacity: 0.16;
+      animation: pulseGlow 18s ease-in-out infinite alternate;
+    }
+    .orb-cyan {
+      width: 500px;
+      height: 500px;
+      background: var(--neon-cyan);
+      top: -150px;
+      left: -100px;
+    }
+    .orb-violet {
+      width: 600px;
+      height: 600px;
+      background: var(--neon-violet);
+      top: 35%;
+      right: -200px;
+      animation-delay: -6s;
+    }
+    .orb-magenta {
+      width: 450px;
+      height: 450px;
+      background: var(--neon-magenta);
+      bottom: -150px;
+      left: 15%;
+      animation-delay: -11s;
+    }
+    @keyframes pulseGlow {
+      0% { transform: scale(1) translate(0, 0); opacity: 0.12; }
+      50% { transform: scale(1.12) translate(40px, -30px); opacity: 0.22; }
+      100% { transform: scale(0.92) translate(-30px, 40px); opacity: 0.15; }
+    }
+
+    /* Scroll progress indicator at top */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-violet), var(--neon-magenta));
+      z-index: 9999;
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+
+    /* ==========================================================================
+       TOP TELEMETRY STATUS BAR (SCI-FI HUD)
+       ========================================================================== */
+    .telemetry-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-height);
+      background: rgba(3, 7, 18, 0.95);
+      border-bottom: 1px solid var(--border-cyber);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      font-family: var(--font-hud);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--text-dim);
+      backdrop-filter: blur(12px);
+    }
+    .telemetry-segment {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .telemetry-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--neon-emerald);
+      box-shadow: 0 0 8px var(--neon-emerald);
+      position: relative;
+    }
+    .telemetry-status-dot::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 50%;
+      border: 1px solid var(--neon-emerald);
+      animation: telemetryRadar 2s infinite cubic-bezier(0, 0.2, 0.8, 1);
+    }
+    @keyframes telemetryRadar {
+      0% { transform: scale(0.6); opacity: 1; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+
+    .telemetry-item strong {
+      color: var(--neon-cyan);
+      font-weight: 700;
+    }
+
+    /* Audio FX Toggle Button */
+    .audio-toggle-btn {
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid var(--border-cyber);
+      color: var(--neon-cyan);
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+      padding: 3px 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+    }
+    .audio-toggle-btn:hover {
+      background: rgba(0, 240, 255, 0.2);
+      box-shadow: 0 0 10px var(--neon-cyan-glow);
+    }
+    .audio-toggle-btn.active {
+      border-color: var(--neon-emerald);
+      color: var(--neon-emerald);
+      background: rgba(0, 255, 102, 0.12);
+    }
+
+    /* ==========================================================================
+       TACTICAL NAVIGATION BAR
+       ========================================================================== */
+    .navbar {
+      position: fixed;
+      top: var(--header-height);
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      background: rgba(4, 8, 20, 0.85);
+      border-bottom: 1px solid var(--border-cyber);
+      z-index: 999;
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+    }
+    .nav-container {
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Brand Logo */
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-bracket {
+      color: var(--neon-magenta);
+      font-family: var(--font-hud);
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+    .logo-callsign {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      background: linear-gradient(90deg, var(--neon-cyan), #fff, var(--neon-violet));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 8px var(--neon-cyan-glow));
+    }
+    .logo-version {
+      font-family: var(--font-hud);
+      font-size: 0.65rem;
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.1);
+      padding: 2px 6px;
+      border: 1px solid rgba(0, 240, 255, 0.3);
+    }
+
+    /* Nav Links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      gap: 24px;
+    }
+    .nav-item a {
+      font-family: var(--font-hud);
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 6px 12px;
+      letter-spacing: 0.05em;
+      position: relative;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item a span.nav-index {
+      color: var(--neon-cyan);
+      font-size: 0.72rem;
+      opacity: 0.7;
+    }
+    .nav-item a:hover, .nav-item a.active {
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.08);
+      box-shadow: inset 0 0 8px rgba(0, 240, 255, 0.15);
+    }
+    .nav-item a::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 6px var(--neon-cyan);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .nav-item a.active::after, .nav-item a:hover::after {
+      opacity: 1;
+    }
+
+    /* Terminal Quick Launcher Button */
+    .terminal-launcher-btn {
+      background: rgba(255, 0, 127, 0.1);
+      border: 1px solid var(--neon-magenta);
+      color: var(--neon-magenta);
+      font-family: var(--font-hud);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+      transition: all 0.25s ease;
+    }
+    .terminal-launcher-btn:hover {
+      background: var(--neon-magenta);
+      color: #000;
+      box-shadow: 0 0 16px var(--neon-magenta-glow);
+    }
+
+    /* Mobile Hamburger */
+    .mobile-hamburger {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-cyber);
+      color: var(--neon-cyan);
+      padding: 8px 10px;
+      cursor: pointer;
+      font-family: var(--font-hud);
+      font-size: 0.8rem;
+    }
+
+    .mobile-menu-drawer {
+      position: fixed;
+      top: calc(var(--header-height) + var(--nav-height));
+      left: 0;
+      width: 100%;
+      background: rgba(4, 8, 20, 0.98);
+      border-bottom: 2px solid var(--neon-cyan);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transform: translateY(-120%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 998;
+    }
+    .mobile-menu-drawer.open {
+      transform: translateY(0);
+    }
+    .mobile-nav-link {
+      font-family: var(--font-hud);
+      font-size: 0.95rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 10px 14px;
+      background: rgba(0, 240, 255, 0.04);
+      border-left: 2px solid var(--neon-cyan);
+    }
+    .mobile-nav-link:hover, .mobile-nav-link.active {
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.12);
+    }
+
+    /* ==========================================================================
+       CHAMFERED TACTICAL CYBER PANELS
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section {
+      padding: 90px 0;
+      position: relative;
+    }
+
+    /* Section Header */
+    .section-header {
+      margin-bottom: 48px;
+    }
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-hud);
+      font-size: 0.8rem;
+      color: var(--neon-cyan);
+      letter-spacing: 0.12em;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+    .section-tag::before {
+      content: '//';
+      color: var(--neon-magenta);
+      font-weight: 800;
+    }
+    .section-tag-badge {
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      padding: 2px 8px;
+      font-size: 0.7rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.8vw, 2.9rem);
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      color: var(--text-white);
+      line-height: 1.15;
+    }
+    .section-title .text-accent {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 20px var(--neon-cyan-glow);
+    }
+    .section-title .text-magenta {
+      color: var(--neon-magenta);
+      text-shadow: 0 0 20px var(--neon-magenta-glow);
+    }
+
+    /* Chamfered Cyber Panel Container */
+    .cyber-panel {
+      position: relative;
+      background: var(--bg-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border-cyber);
+      clip-path: polygon(
+        0 var(--chamfer),
+        var(--chamfer) 0,
+        calc(100% - var(--chamfer)) 0,
+        100% var(--chamfer),
+        100% calc(100% - var(--chamfer)),
+        calc(100% - var(--chamfer)) 100%,
+        var(--chamfer) 100%,
+        0 calc(100% - var(--chamfer))
+      );
+      padding: 36px;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 240, 255, 0.03);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cyber-panel:hover {
+      border-color: var(--border-cyber-bright);
+      box-shadow: 0 14px 45px -10px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 240, 255, 0.18);
+    }
+
+    /* Corner Technical Brackets & Crosshairs */
+    .panel-bracket-tl {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 14px;
+      height: 14px;
+      border-top: 2px solid var(--neon-cyan);
+      border-left: 2px solid var(--neon-cyan);
+      pointer-events: none;
+    }
+    .panel-bracket-br {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: 14px;
+      height: 14px;
+      border-bottom: 2px solid var(--neon-magenta);
+      border-right: 2px solid var(--neon-magenta);
+      pointer-events: none;
+    }
+    .panel-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px dashed var(--border-cyber);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      font-family: var(--font-hud);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .panel-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .panel-icon-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 8px var(--neon-cyan);
+    }
+    .panel-security-tag {
+      font-size: 0.68rem;
+      background: rgba(255, 0, 127, 0.12);
+      border: 1px solid rgba(255, 0, 127, 0.3);
+      color: var(--neon-magenta);
+      padding: 1px 6px;
+      font-weight: 700;
+    }
+
+    /* Buttons */
+    .btn-cyber {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 26px;
+      font-family: var(--font-hud);
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+      transition: all 0.25s ease;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+    .btn-cyber-primary {
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-violet));
+      color: #000;
+      box-shadow: 0 0 20px var(--neon-cyan-glow);
+    }
+    .btn-cyber-primary:hover {
+      box-shadow: 0 0 35px var(--neon-cyan), 0 0 15px var(--neon-violet);
+      transform: translateY(-2px);
+      filter: brightness(1.15);
+    }
+    .btn-cyber-outline {
+      background: rgba(0, 240, 255, 0.05);
+      color: var(--neon-cyan);
+      border-color: var(--border-cyber-bright);
+    }
+    .btn-cyber-outline:hover {
+      background: rgba(0, 240, 255, 0.18);
+      box-shadow: 0 0 20px var(--neon-cyan-glow);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       HERO: TACTICAL DOSSIER & HOLOGRAPHIC RADAR CORE
+       ========================================================================== */
+    .hero-section {
+      min-height: calc(100vh - var(--header-height) - var(--nav-height));
+      display: flex;
+      align-items: center;
+      padding: 40px 0 70px 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    /* Dossier Card */
+    .dossier-card {
+      padding: 40px;
+    }
+    .dossier-meta-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 255, 102, 0.08);
+      border: 1px solid rgba(0, 255, 102, 0.3);
+      padding: 4px 14px;
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      color: var(--neon-emerald);
+      margin-bottom: 20px;
+      clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+    }
+    .dossier-meta-badge span.radar-blip {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--neon-emerald);
+      box-shadow: 0 0 8px var(--neon-emerald);
+    }
+
+    .hero-name-glitch {
+      font-family: var(--font-display);
+      font-size: clamp(2.3rem, 4.4vw, 4rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+      position: relative;
+      text-transform: uppercase;
+    }
+    .hero-name-glitch span {
+      background: linear-gradient(90deg, #fff 0%, var(--neon-cyan) 45%, var(--neon-violet) 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.5));
+    }
+
+    /* Role Command Prompt */
+    .role-terminal-box {
+      background: var(--bg-terminal);
+      border-left: 3px solid var(--neon-cyan);
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      font-family: var(--font-hud);
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .role-prompt {
+      color: var(--neon-magenta);
+      font-weight: 700;
+    }
+    .role-typing {
+      color: var(--neon-cyan);
+      font-weight: 600;
+    }
+    .role-cursor {
+      display: inline-block;
+      width: 8px;
+      height: 18px;
+      background: var(--neon-cyan);
+      box-shadow: 0 0 8px var(--neon-cyan);
+      animation: cursorBlink 0.8s infinite;
+    }
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    .hero-intro-text {
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    /* Social Cyber Uplinks */
+    .social-uplinks {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .social-node {
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 240, 255, 0.05);
+      border: 1px solid var(--border-cyber);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--neon-cyan);
+      text-decoration: none;
+      clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+      transition: all 0.2s ease;
+    }
+    .social-node svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+    .social-node:hover {
+      background: rgba(0, 240, 255, 0.25);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 16px var(--neon-cyan-glow);
+      transform: translateY(-2px);
+    }
+
+    /* Holographic Radar Visualizer Core */
+    .hologram-hud-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hologram-stage {
+      position: relative;
+      width: 360px;
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Radar Rings */
+    .radar-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed rgba(0, 240, 255, 0.35);
+      pointer-events: none;
+    }
+    .ring-1 {
+      width: 350px;
+      height: 350px;
+      animation: rotateRing 35s linear infinite;
+    }
+    .ring-2 {
+      width: 290px;
+      height: 290px;
+      border-color: rgba(139, 92, 246, 0.45);
+      border-style: dotted;
+      animation: rotateRingReverse 25s linear infinite;
+    }
+    .ring-3 {
+      width: 230px;
+      height: 230px;
+      border: 1px solid rgba(255, 0, 127, 0.3);
+      animation: rotateRing 18s linear infinite;
+    }
+    @keyframes rotateRing {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes rotateRingReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* Radar Compass Ticks */
+    .compass-tick {
+      position: absolute;
+      font-family: var(--font-hud);
+      font-size: 0.65rem;
+      color: var(--neon-cyan);
+      opacity: 0.6;
+    }
+    .tick-n { top: 4px; left: 50%; transform: translateX(-50%); }
+    .tick-e { right: 4px; top: 50%; transform: translateY(-50%); }
+    .tick-s { bottom: 4px; left: 50%; transform: translateX(-50%); }
+    .tick-w { left: 4px; top: 50%; transform: translateY(-50%); }
+
+    /* Central Avatar Core */
+    .avatar-cyber-core {
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2), #060b19 75%);
+      border: 2px solid var(--neon-cyan);
+      box-shadow: 0 0 35px var(--neon-cyan-glow), inset 0 0 25px rgba(0, 240, 255, 0.25);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      animation: coreBob 5s ease-in-out infinite alternate;
+    }
+    @keyframes coreBob {
+      0% { transform: translateY(-6px); }
+      100% { transform: translateY(6px); }
+    }
+
+    .avatar-scan-bar {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      box-shadow: 0 0 10px var(--neon-cyan);
+      animation: avatarScan 3s linear infinite;
+    }
+    @keyframes avatarScan {
+      0% { top: -10%; opacity: 0; }
+      50% { opacity: 1; }
+      100% { top: 110%; opacity: 0; }
+    }
+
+    .avatar-initials-display {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 20px var(--neon-cyan);
+    }
+    .avatar-sub-status {
+      font-family: var(--font-hud);
+      font-size: 0.62rem;
+      color: var(--neon-emerald);
+      letter-spacing: 0.15em;
+      font-weight: 700;
+    }
+
+    /* ==========================================================================
+       SECTION 1: ABOUT & TACTICAL STATS
+       ========================================================================== */
+    .about-hud-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 32px;
+    }
+
+    .about-bio-text {
+      color: var(--text-dim);
+      font-size: 1.05rem;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    /* Stat Telemetry Modules */
+    .stats-matrix {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .stat-module {
+      background: rgba(0, 240, 255, 0.03);
+      border: 1px solid var(--border-cyber);
+      padding: 20px 14px;
+      text-align: center;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+      transition: all 0.25s ease;
+    }
+    .stat-module:hover {
+      border-color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.08);
+      box-shadow: 0 0 15px var(--neon-cyan-glow);
+      transform: translateY(-2px);
+    }
+    .stat-val {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      font-weight: 900;
+      color: var(--neon-cyan);
+      line-height: 1.1;
+      margin-bottom: 6px;
+      text-shadow: 0 0 12px var(--neon-cyan-glow);
+    }
+    .stat-module:nth-child(2) .stat-val {
+      color: var(--neon-violet);
+      text-shadow: 0 0 12px var(--neon-violet-glow);
+    }
+    .stat-module:nth-child(3) .stat-val {
+      color: var(--neon-magenta);
+      text-shadow: 0 0 12px var(--neon-magenta-glow);
+    }
+    .stat-lbl {
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Education Timeline */
+    .timeline-cyber {
+      position: relative;
+      padding-left: 28px;
+      margin-top: 14px;
+    }
+    .timeline-cyber::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: 7px;
+      bottom: 6px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
+    }
+    .timeline-node-item {
+      position: relative;
+    }
+    .timeline-node-item::before {
+      content: '';
+      position: absolute;
+      top: 6px;
+      left: -28px;
+      width: 16px;
+      height: 16px;
+      background: var(--bg-void);
+      border: 2px solid var(--neon-cyan);
+      box-shadow: 0 0 10px var(--neon-cyan);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    }
+    .timeline-degree-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .timeline-institute-name {
+      font-family: var(--font-hud);
+      font-size: 0.9rem;
+      color: var(--neon-cyan);
+      margin-bottom: 6px;
+    }
+    .timeline-year-tag {
+      display: inline-block;
+      font-family: var(--font-hud);
+      font-size: 0.75rem;
+      color: var(--neon-magenta);
+      background: rgba(255, 0, 127, 0.1);
+      border: 1px solid rgba(255, 0, 127, 0.3);
+      padding: 2px 8px;
+      margin-bottom: 12px;
+    }
+
+    /* ==========================================================================
+       SECTION 2: SKILLS - ENERGY REACTOR BARS & CHIP MATRIX
+       ========================================================================== */
+    .skills-hud-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+    }
+
+    .energy-bars-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .skill-reactor-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .skill-reactor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-hud);
+      font-size: 0.88rem;
+    }
+    .skill-reactor-name {
+      font-weight: 600;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .skill-reactor-percent {
+      color: var(--neon-cyan);
+      font-weight: 700;
+      text-shadow: 0 0 8px var(--neon-cyan-glow);
+    }
+
+    /* 10 Segmented Cyber Power Cells */
+    .reactor-cells-track {
+      display: flex;
+      gap: 4px;
+      width: 100%;
+      height: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 2px;
+      border: 1px solid rgba(0, 240, 255, 0.2);
+    }
+    .power-cell {
+      flex: 1;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+    }
+    .power-cell.active-cyan {
+      background: var(--neon-cyan);
+      box-shadow: 0 0 6px var(--neon-cyan);
+    }
+    .power-cell.active-violet {
+      background: var(--neon-violet);
+      box-shadow: 0 0 6px var(--neon-violet);
+    }
+    .power-cell.active-magenta {
+      background: var(--neon-magenta);
+      box-shadow: 0 0 6px var(--neon-magenta);
+    }
+    .power-cell.active-emerald {
+      background: var(--neon-emerald);
+      box-shadow: 0 0 6px var(--neon-emerald);
+    }
+
+    /* Cyber Chip Cloud */
+    .chip-cloud-matrix {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 14px;
+    }
+    .cyber-chip {
+      font-family: var(--font-hud);
+      font-size: 0.82rem;
+      color: var(--text-white);
+      background: rgba(139, 92, 246, 0.08);
+      border: 1px solid rgba(139, 92, 246, 0.35);
+      padding: 8px 16px;
+      clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      cursor: default;
+    }
+    .chip-led {
+      width: 6px;
+      height: 6px;
+      background: var(--neon-violet);
+      box-shadow: 0 0 6px var(--neon-violet);
+    }
+    .cyber-chip:hover {
+      background: rgba(139, 92, 246, 0.25);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px var(--neon-violet-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================================================
+       SECTION 3: FEATURED PROJECT - HOLOGRAPHIC AI TRASH VISION SCANNER
+       ========================================================================== */
+    .project-cockpit-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 36px;
+      align-items: stretch;
+    }
+
+    /* AI Vision Telemetry Box */
+    .ai-vision-hud {
+      background: #030612;
+      border: 1px solid var(--border-cyber);
+      padding: 24px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .vision-scanner-frame {
+      width: 100%;
+      height: 220px;
+      border: 1px dashed rgba(0, 240, 255, 0.35);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.1), transparent 80%);
+      overflow: hidden;
+    }
+
+    .laser-scanline-v {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      box-shadow: 0 0 12px var(--neon-cyan);
+      animation: sweepLaser 3.5s ease-in-out infinite alternate;
+    }
+    @keyframes sweepLaser {
+      0% { top: 5%; opacity: 0.3; }
+      50% { opacity: 1; }
+      100% { top: 95%; opacity: 0.3; }
+    }
+
+    /* Interactive Bounding Box on Simulator */
+    .bounding-target-box {
+      width: 160px;
+      height: 100px;
+      border: 1px solid var(--neon-emerald);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 255, 102, 0.05);
+      animation: targetPulse 2s infinite ease-in-out;
+    }
+    @keyframes targetPulse {
+      0%, 100% { border-color: var(--neon-emerald); }
+      50% { border-color: var(--neon-cyan); }
+    }
+    .target-tag {
+      position: absolute;
+      top: -10px;
+      left: -1px;
+      background: var(--neon-emerald);
+      color: #000;
+      font-family: var(--font-hud);
+      font-size: 0.65rem;
+      font-weight: 800;
+      padding: 1px 6px;
+    }
+    .target-accuracy-big {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 20px var(--neon-cyan);
+      line-height: 1;
+    }
+    .target-sub {
+      font-family: var(--font-hud);
+      font-size: 0.65rem;
+      color: var(--neon-cyan);
+    }
+
+    /* Live Telemetry Ticker */
+    .vision-telemetry-log {
+      margin-top: 18px;
+      background: rgba(0, 0, 0, 0.6);
+      border-left: 2px solid var(--neon-cyan);
+      padding: 10px 14px;
+      font-family: var(--font-hud);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .vision-telemetry-log span strong {
+      color: var(--neon-cyan);
+    }
+
+    /* Classification Category Chips */
+    .waste-pills-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .waste-pill {
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text-dim);
+    }
+
+    /* Project Description Column */
+    .project-brief-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .project-title-large {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    .project-desc-text {
+      color: var(--text-dim);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 22px;
+    }
+    .project-tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .tech-pill-cyber {
+      font-family: var(--font-hud);
+      font-size: 0.78rem;
+      color: var(--neon-cyan);
+      background: rgba(0, 240, 255, 0.08);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      padding: 4px 12px;
+    }
+
+    /* ==========================================================================
+       SECTION 4: ACTIVITIES & HACKATHONS - MISSION DOSSIERS
+       ========================================================================== */
+    .missions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .mission-card {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.25s ease;
+    }
+    .mission-card:hover {
+      transform: translateY(-4px);
+    }
+    .mission-badge-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+    }
+    .mission-op-id {
+      color: var(--neon-cyan);
+      font-weight: 700;
+    }
+    .mission-security-stamp {
+      color: var(--neon-emerald);
+      background: rgba(0, 255, 102, 0.1);
+      border: 1px solid rgba(0, 255, 102, 0.3);
+      padding: 1px 6px;
+    }
+    .mission-icon-cyber {
+      font-size: 2rem;
+      margin: 4px 0;
+    }
+    .mission-title-h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .mission-desc {
+      color: var(--text-dim);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE CYBERDECK TERMINAL (EMBEDDED CLI)
+       ========================================================================== */
+    .cyber-terminal-section {
+      margin-top: 50px;
+    }
+    .terminal-window {
+      background: var(--bg-terminal);
+      border: 1px solid var(--border-cyber);
+      clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(0, 0, 0, 0.9);
+      overflow: hidden;
+    }
+    .terminal-titlebar {
+      background: rgba(6, 11, 25, 0.95);
+      border-bottom: 1px solid var(--border-cyber);
+      padding: 10px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-hud);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+    .terminal-traffic-lights {
+      display: flex;
+      gap: 6px;
+    }
+    .traffic-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-red { background: #ff5f56; }
+    .dot-yellow { background: #ffbd2e; }
+    .dot-green { background: #27c93f; }
+
+    .terminal-screen {
+      padding: 20px;
+      font-family: var(--font-hud);
+      font-size: 0.85rem;
+      color: var(--neon-cyan);
+      min-height: 220px;
+      max-height: 380px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .terminal-output-line {
+      line-height: 1.6;
+      word-break: break-word;
+    }
+    .terminal-output-line.system {
+      color: var(--text-muted);
+    }
+    .terminal-output-line.success {
+      color: var(--neon-emerald);
+    }
+    .terminal-output-line.accent {
+      color: var(--neon-magenta);
+    }
+    .terminal-input-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .terminal-prompt-user {
+      color: var(--neon-magenta);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .terminal-cli-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-family: var(--font-hud);
+      font-size: 0.85rem;
+    }
+
+    /* ==========================================================================
+       SECTION 5: CONTACT - QUANTUM TRANSMISSION UPLINK
+       ========================================================================== */
+    .uplink-hud-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 36px;
+    }
+
+    .uplink-channel-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px;
+      background: rgba(0, 240, 255, 0.03);
+      border: 1px solid var(--border-cyber);
+      margin-bottom: 14px;
+      text-decoration: none;
+      color: var(--text-white);
+      transition: all 0.2s ease;
+      clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    }
+    .uplink-channel-item:hover {
+      background: rgba(0, 240, 255, 0.1);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px var(--neon-cyan-glow);
+      transform: translateX(6px);
+    }
+    .uplink-icon-box {
+      width: 42px;
+      height: 42px;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid rgba(0, 240, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--neon-cyan);
+      flex-shrink: 0;
+    }
+    .uplink-icon-box svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+    .uplink-label-small {
+      font-family: var(--font-hud);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .uplink-val-bold {
+      font-family: var(--font-hud);
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    /* Form Fields */
+    .cyber-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field-label {
+      font-family: var(--font-hud);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+    .field-label span {
+      color: var(--neon-magenta);
+    }
+    .field-input, .field-textarea {
+      background: rgba(3, 7, 18, 0.8);
+      border: 1px solid var(--border-cyber);
+      padding: 12px 16px;
+      color: #fff;
+      font-family: var(--font-hud);
+      font-size: 0.9rem;
+      outline: none;
+      transition: all 0.2s ease;
+      clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%);
+    }
+    .field-input:focus, .field-textarea:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px var(--neon-cyan-glow);
+      background: rgba(0, 240, 255, 0.05);
+    }
+
+    .uplink-status-box {
+      padding: 12px;
+      font-family: var(--font-hud);
+      font-size: 0.82rem;
+      border: 1px solid transparent;
+      display: none;
+    }
+    .uplink-status-box.active {
+      display: block;
+      background: rgba(0, 255, 102, 0.1);
+      border-color: var(--neon-emerald);
+      color: var(--neon-emerald);
+    }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .footer-cyber {
+      border-top: 1px solid var(--border-cyber);
+      padding: 36px 0;
+      background: rgba(2, 4, 10, 0.95);
+      position: relative;
+      z-index: 2;
+    }
+    .footer-layout {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-family: var(--font-hud);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Scroll Reveal */
+    .hud-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .hud-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .role-terminal-box {
+        justify-content: center;
+      }
+      .hero-cta-group {
+        justify-content: center;
+      }
+      .social-uplinks {
+        justify-content: center;
+      }
+      .about-hud-grid, .skills-hud-grid, .project-cockpit-grid, .uplink-hud-grid {
+        grid-template-columns: 1fr;
+      }
+      .telemetry-item.hide-tablet {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: calc(var(--header-height) + var(--nav-height) - 4px);
+      }
+      .section {
+        padding: 60px 0;
+      }
+      .nav-links {
+        display: none;
+      }
+      .mobile-hamburger {
+        display: block;
+      }
+      .stats-matrix {
+        grid-template-columns: 1fr;
+      }
+      .cyber-panel {
+        padding: 24px;
+      }
+      .telemetry-item.hide-mobile {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-cta-group .btn-cyber {
+        width: 100%;
+      }
+      .hologram-stage {
+        width: 290px;
+        height: 290px;
+      }
+      .ring-1 { width: 280px; height: 280px; }
+      .ring-2 { width: 230px; height: 230px; }
+      .ring-3 { width: 180px; height: 180px; }
+      .avatar-cyber-core { width: 140px; height: 140px; }
+      .avatar-initials-display { font-size: 2.2rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .hud-reveal { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Reader Accessible Skip Link -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Top Scroll Progress Line -->
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Background Canvas & CRT Scanline Textures -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="crt-overlay" aria-hidden="true"></div>
+
+  <!-- Ambient Pulsing Meshes -->
+  <div class="ambient-glow-mesh" aria-hidden="true">
+    <div class="glow-orb orb-cyan"></div>
+    <div class="glow-orb orb-violet"></div>
+    <div class="glow-orb orb-magenta"></div>
+  </div>
+
+  <!-- ==========================================================================
+       TOP TELEMETRY STATUS BAR (SCI-FI HUD)
+       ========================================================================== */ -->
+  <aside class="telemetry-bar" aria-label="Cyberdeck Telemetry">
+    <div class="telemetry-segment">
+      <span class="telemetry-status-dot" aria-hidden="true"></span>
+      <span class="telemetry-item">STATUS: <strong>ONLINE // READY</strong></span>
+      <span class="telemetry-item hide-mobile">LOC: <strong>17.3850° N, 78.4867° E [HYDERABAD]</strong></span>
+    </div>
+
+    <div class="telemetry-segment">
+      <span class="telemetry-item hide-tablet" id="live-hud-clock">TIME: <strong>00:00:00 IST</strong></span>
+      
+      <!-- Audio FX Synthesizer Toggle -->
+      <button id="audio-fx-toggle" class="audio-toggle-btn" aria-label="Toggle cyber audio effects">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        <span id="audio-status-text">AUDIO: ON</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==========================================================================
+       TACTICAL NAVIGATION BAR
+       ========================================================================== */ -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand" aria-label="Chandiri Anvith Reddy Home">
+        <span class="logo-bracket">&lt;</span>
+        <span class="logo-callsign">CAR</span>
+        <span class="logo-bracket">/&gt;</span>
+        <span class="logo-version">v4.0_CYBER</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav aria-label="Tactical Navigation">
+        <ul class="nav-links">
+          <li class="nav-item"><a href="#about"><span class="nav-index">01//</span>about</a></li>
+          <li class="nav-item"><a href="#skills"><span class="nav-index">02//</span>skills</a></li>
+          <li class="nav-item"><a href="#projects"><span class="nav-index">03//</span>projects</a></li>
+          <li class="nav-item"><a href="#activities"><span class="nav-index">04//</span>missions</a></li>
+          <li class="nav-item"><a href="#terminal"><span class="nav-index">05//</span>terminal</a></li>
+          <li class="nav-item"><a href="#contact"><span class="nav-index">06//</span>uplink</a></li>
+        </ul>
+      </nav>
+
+      <!-- Terminal Fast-Launch Action -->
+      <button class="terminal-launcher-btn" id="open-terminal-btn" aria-label="Open Interactive CLI Terminal">
+        <span>$ CLI_SHELL</span>
+      </button>
+
+      <!-- Mobile Hamburger -->
+      <button class="mobile-hamburger" id="mobile-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+        MENU//
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-menu-drawer" id="mobile-menu-drawer" aria-hidden="true">
+    <a href="#about" class="mobile-nav-link">// 01 ABOUT DOSSIER</a>
+    <a href="#skills" class="mobile-nav-link">// 02 SKILLS MATRIX</a>
+    <a href="#projects" class="mobile-nav-link">// 03 FEATURED PROJECT</a>
+    <a href="#activities" class="mobile-nav-link">// 04 HACKATHONS &amp; MISSIONS</a>
+    <a href="#terminal" class="mobile-nav-link">// 05 INTERACTIVE TERMINAL</a>
+    <a href="#contact" class="mobile-nav-link">// 06 CONTACT UPLINK</a>
+  </div>
+
+  <main id="main-content">
+    <!-- ==========================================================================
+         HERO SECTION: TACTICAL PERSONNEL DOSSIER & HOLOGRAPHIC CORE
+         ========================================================================== -->
+    <section class="hero-section" id="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <!-- Left Column: Tactical Personnel Dossier -->
+          <div class="cyber-panel dossier-card hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="panel-header-bar">
+              <div class="panel-header-left">
+                <span class="panel-icon-dot"></span>
+                <span>DOSSIER: CAR_DEV_SYS</span>
+              </div>
+              <span class="panel-security-tag">LEVEL_4_CLEARED</span>
+            </div>
+
+            <!-- Internship Readiness Badge -->
+            <div class="dossier-meta-badge">
+              <span class="radar-blip"></span>
+              <span>SEEKING SOFTWARE &amp; WEB DEV INTERNSHIP MISSION</span>
+            </div>
+
+            <!-- Glitch Name -->
+            <h1 class="hero-name-glitch">
+              <span>Chandiri Anvith Reddy</span>
+            </h1>
+
+            <!-- Typing Command Terminal -->
+            <div class="role-terminal-box">
+              <span class="role-prompt">&gt; role.target:</span>
+              <span class="role-typing" id="role-type-output"></span>
+              <span class="role-cursor" aria-hidden="true"></span>
+            </div>
+
+            <!-- Intro Statement -->
+            <p class="hero-intro-text">
+              Computer Science student seeking an internship in software or web development, 
+              with hackathon experience in cybersecurity and Generative AI. 
+              Eager to apply my skills and learn how real-world software is built.
+            </p>
+
+            <!-- Tactical CTAs -->
+            <div class="hero-cta-group">
+              <a href="#projects" class="btn-cyber btn-cyber-primary play-sound">
+                <span>[INSPECT PROJECT]</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </a>
+              <a href="#contact" class="btn-cyber btn-cyber-outline play-sound">
+                <span>[TRANSMIT UPLINK]</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </a>
+            </div>
+
+            <!-- Social Nodes -->
+            <div class="social-uplinks">
+              <!-- EDIT: Paste your GitHub profile URL in href below -->
+              <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-node play-sound" aria-label="GitHub Profile" title="GitHub">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+              </a>
+
+              <!-- EDIT: Paste your LinkedIn profile URL in href below -->
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-node play-sound" aria-label="LinkedIn Profile" title="LinkedIn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+              </a>
+
+              <!-- Direct Email -->
+              <a href="mailto:chandirianvithreddy@gmail.com" class="social-node play-sound" aria-label="Direct Email" title="Email">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Holographic HUD Radar Visualizer -->
+          <div class="hologram-hud-wrapper hud-reveal">
+            <div class="hologram-stage" aria-label="Futuristic holographic tactical HUD core">
+              <!-- Concentric Telemetry Rings -->
+              <div class="radar-ring ring-1"></div>
+              <div class="radar-ring ring-2"></div>
+              <div class="radar-ring ring-3"></div>
+
+              <!-- Compass Ticks -->
+              <span class="compass-tick tick-n">000°</span>
+              <span class="compass-tick tick-e">090°</span>
+              <span class="compass-tick tick-s">180°</span>
+              <span class="compass-tick tick-w">270°</span>
+
+              <!-- Cyber Core Disc -->
+              <div class="avatar-cyber-core">
+                <div class="avatar-scan-bar"></div>
+                <span class="avatar-initials-display">CAR</span>
+                <span class="avatar-sub-status">[SYNC: 100%]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 1: ABOUT & EDUCATION LOG
+         ========================================================================== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-header hud-reveal">
+          <div class="section-tag">
+            <span>MODULE_01</span>
+            <span class="section-tag-badge">BACKGROUND</span>
+          </div>
+          <h2 class="section-title">ENGINEERING <span class="text-accent">DOSSIER</span></h2>
+        </div>
+
+        <div class="about-hud-grid">
+          <!-- Main Overview Card -->
+          <div class="cyber-panel hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="panel-header-bar">
+              <div class="panel-header-left">
+                <span class="panel-icon-dot"></span>
+                <span>BIOGRAPHY.SYS</span>
+              </div>
+              <span>SECTOR_HYDERABAD</span>
+            </div>
+
+            <p class="about-bio-text">
+              I am an aspiring Software and Web Developer pursuing my Bachelor of Technology in Computer Science 
+              at Vignana Bharathi Institute of Technology (VBIT), Ghatkesar, Hyderabad. Passionate about architecting 
+              scalable, intelligent applications, I synthesize algorithmic foundations with modern web development 
+              and practical hackathon experience across cybersecurity defense and Generative AI innovation.
+            </p>
+
+            <!-- Three Key Stat Modules with Count-up -->
+            <div class="stats-matrix">
+              <div class="stat-module">
+                <div class="stat-val" data-target="90" data-suffix="%">0%</div>
+                <div class="stat-lbl">Model Accuracy</div>
+              </div>
+              <div class="stat-module">
+                <div class="stat-val" data-target="3" data-suffix="+">0+</div>
+                <div class="stat-lbl">Hackathons/Workshops</div>
+              </div>
+              <div class="stat-module">
+                <div class="stat-val" data-target="2028" data-suffix="">0</div>
+                <div class="stat-lbl">Graduation Year</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education Timeline Card -->
+          <div class="cyber-panel hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="panel-header-bar">
+              <div class="panel-header-left">
+                <span class="panel-icon-dot"></span>
+                <span>ACADEMIC_TRACK.LOG</span>
+              </div>
+              <span class="panel-security-tag">ACTIVE_ENROLLMENT</span>
+            </div>
+
+            <div class="timeline-cyber">
+              <div class="timeline-node-item">
+                <h3 class="timeline-degree-title">B.Tech in Computer Science and Engineering</h3>
+                <div class="timeline-institute-name">Vignana Bharathi Institute of Technology (VBIT), Ghatkesar</div>
+                <span class="timeline-year-tag">2024 &mdash; 2028 &bull; Hyderabad, Telangana</span>
+                <p style="color: var(--text-dim); font-size: 0.92rem; line-height: 1.6;">
+                  Focusing on Data Structures &amp; Algorithms, Object-Oriented Systems, Relational Database Management, 
+                  Web Application Engineering, and Artificial Intelligence foundations. Active participant in collegiate 
+                  hackathons and technical workshops.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: SKILLS - ENERGY REACTOR BARS & CHIP CLOUD
+         ========================================================================== -->
+    <section class="section" id="skills">
+      <div class="container">
+        <div class="section-header hud-reveal">
+          <div class="section-tag">
+            <span>MODULE_02</span>
+            <span class="section-tag-badge">ARSENAL</span>
+          </div>
+          <h2 class="section-title">CORE <span class="text-accent">PROFICIENCIES</span></h2>
+        </div>
+
+        <div class="skills-hud-grid">
+          <!-- Left: Segmented Energy Bars -->
+          <div class="cyber-panel hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="panel-header-bar">
+              <div class="panel-header-left">
+                <span class="panel-icon-dot"></span>
+                <span>REACTOR_CELLS.BIN</span>
+              </div>
+              <span>CALIBRATED_100%</span>
+            </div>
+
+            <div class="energy-bars-wrapper">
+              
+              <!-- EDIT: Adjust skill percentages below (0-100) -->
+              <!-- Python: 80% -->
+              <div class="skill-reactor-item" data-value="80" data-theme="cyan">
+                <div class="skill-reactor-header">
+                  <span class="skill-reactor-name">Python</span>
+                  <span class="skill-reactor-percent">80%</span>
+                </div>
+                <div class="reactor-cells-track">
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                </div>
+              </div>
+
+              <!-- HTML/CSS: 85% -->
+              <div class="skill-reactor-item" data-value="85" data-theme="violet">
+                <div class="skill-reactor-header">
+                  <span class="skill-reactor-name">HTML / CSS</span>
+                  <span class="skill-reactor-percent">85%</span>
+                </div>
+                <div class="reactor-cells-track">
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                </div>
+              </div>
+
+              <!-- Problem Solving: 85% -->
+              <div class="skill-reactor-item" data-value="85" data-theme="emerald">
+                <div class="skill-reactor-header">
+                  <span class="skill-reactor-name">Problem Solving</span>
+                  <span class="skill-reactor-percent">85%</span>
+                </div>
+                <div class="reactor-cells-track">
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                </div>
+              </div>
+
+              <!-- SQL / MySQL: 75% -->
+              <div class="skill-reactor-item" data-value="75" data-theme="cyan">
+                <div class="skill-reactor-header">
+                  <span class="skill-reactor-name">SQL / MySQL</span>
+                  <span class="skill-reactor-percent">75%</span>
+                </div>
+                <div class="reactor-cells-track">
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                </div>
+              </div>
+
+              <!-- C / Java: 70% -->
+              <div class="skill-reactor-item" data-value="70" data-theme="magenta">
+                <div class="skill-reactor-header">
+                  <span class="skill-reactor-name">C / Java</span>
+                  <span class="skill-reactor-percent">70%</span>
+                </div>
+                <div class="reactor-cells-track">
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                </div>
+              </div>
+
+              <!-- C#: 65% -->
+              <div class="skill-reactor-item" data-value="65" data-theme="violet">
+                <div class="skill-reactor-header">
+                  <span class="skill-reactor-name">C#</span>
+                  <span class="skill-reactor-percent">65%</span>
+                </div>
+                <div class="reactor-cells-track">
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                </div>
+              </div>
+
+              <!-- Node.js: 60% -->
+              <div class="skill-reactor-item" data-value="60" data-theme="cyan">
+                <div class="skill-reactor-header">
+                  <span class="skill-reactor-name">Node.js</span>
+                  <span class="skill-reactor-percent">60%</span>
+                </div>
+                <div class="reactor-cells-track">
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                  <div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div><div class="power-cell"></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right: Microchip Cloud & Paradigms -->
+          <div class="cyber-panel hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="panel-header-bar">
+              <div class="panel-header-left">
+                <span class="panel-icon-dot"></span>
+                <span>INTEGRATED_CIRCUITS.JSON</span>
+              </div>
+              <span class="panel-security-tag">EXPANDED</span>
+            </div>
+
+            <p style="color: var(--text-dim); font-size: 0.95rem; margin-bottom: 20px;">
+              Complementary technical disciplines, emerging workflows, and professional communication strengths:
+            </p>
+
+            <div class="chip-cloud-matrix">
+              <div class="cyber-chip"><span class="chip-led"></span><span>Vibe Coding</span></div>
+              <div class="cyber-chip"><span class="chip-led"></span><span>Generative AI</span></div>
+              <div class="cyber-chip"><span class="chip-led"></span><span>Learning New Technologies</span></div>
+              <div class="cyber-chip"><span class="chip-led"></span><span>Bootstrap</span></div>
+              <div class="cyber-chip"><span class="chip-led"></span><span>English (Spoken)</span></div>
+              <div class="cyber-chip"><span class="chip-led"></span><span>English (Written)</span></div>
+              <div class="cyber-chip"><span class="chip-led"></span><span>RESTful Architectures</span></div>
+              <div class="cyber-chip"><span class="chip-led"></span><span>Git Version Control</span></div>
+            </div>
+
+            <!-- Terminal Quote Box -->
+            <div style="margin-top: 36px; padding: 18px; background: rgba(0,0,0,0.4); border-left: 3px solid var(--neon-cyan);">
+              <div style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--neon-cyan); margin-bottom: 6px;">
+                // DEV_MAXIM.TXT
+              </div>
+              <p style="font-size: 0.9rem; color: var(--text-dim); font-style: italic;">
+                &ldquo;Engineering software isn&apos;t just about writing syntax—it&apos;s about translating real-world complexities into elegant, automated, and human-centric systems.&rdquo;
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: FEATURED PROJECT - HOLOGRAPHIC AI TRASH VISION COCKPIT
+         ========================================================================== -->
+    <section class="section" id="projects">
+      <div class="container">
+        <div class="section-header hud-reveal">
+          <div class="section-tag">
+            <span>MODULE_03</span>
+            <span class="section-tag-badge">FEATURED_OPERATION</span>
+          </div>
+          <h2 class="section-title">AI VISION <span class="text-accent">PROJECT</span></h2>
+        </div>
+
+        <div class="cyber-panel hud-reveal">
+          <div class="panel-bracket-tl" aria-hidden="true"></div>
+          <div class="panel-bracket-br" aria-hidden="true"></div>
+
+          <div class="panel-header-bar">
+            <div class="panel-header-left">
+              <span class="panel-icon-dot"></span>
+              <span>CLASSIFIER_AI.EXE // RUNNING</span>
+            </div>
+            <span>APR 2026 &ndash; JUN 2026 &bull; TEAM OF 2</span>
+          </div>
+
+          <div class="project-cockpit-grid">
+            <!-- Left: Simulated AI Scanner & Object Detector -->
+            <div class="ai-vision-hud">
+              <div class="vision-scanner-frame">
+                <div class="laser-scanline-v" aria-hidden="true"></div>
+                
+                <!-- Simulated Bounding Target Box -->
+                <div class="bounding-target-box">
+                  <span class="target-tag">AI_TARGET // RECYCLABLE</span>
+                  <div class="target-accuracy-big">90%</div>
+                  <div class="target-sub">&bull; MODEL PRECISION</div>
+                </div>
+              </div>
+
+              <!-- Waste Category Pills -->
+              <div class="waste-pills-row">
+                <span class="waste-pill">♻️ RECYCLABLE</span>
+                <span class="waste-pill">🍃 ORGANIC</span>
+                <span class="waste-pill">⚡ E-WASTE</span>
+              </div>
+
+              <!-- Live Telemetry Stream -->
+              <div class="vision-telemetry-log">
+                <span>&gt; INFERENCE_ENGINE: <strong>PYTHON_CNN</strong></span>
+                <span>&gt; SEGREGATION: <strong>AUTOMATED_TRIPLE_CLASS</strong></span>
+                <span>&gt; DATA_LAYER: <strong>MYSQL_PERSISTENCE</strong></span>
+              </div>
+            </div>
+
+            <!-- Right: Project Description & Action Links -->
+            <div class="project-brief-content">
+              <div>
+                <h3 class="project-title-large">AI-Based Trash Classification Web App</h3>
+                <p class="project-desc-text">
+                  An intelligent computer vision web application engineered to classify refuse into recyclable, 
+                  organic, and electronic waste from user-uploaded imagery with a verified 90% validation accuracy. 
+                  Aimed at automating waste segregation in smart campuses and municipal sorting pipelines, 
+                  mitigating contamination risks, and advancing environmental sustainability.
+                </p>
+
+                <!-- Tech Stack Badges -->
+                <div class="project-tags-cloud">
+                  <span class="tech-pill-cyber">Python (Model)</span>
+                  <span class="tech-pill-cyber">HTML5</span>
+                  <span class="tech-pill-cyber">CSS3</span>
+                  <span class="tech-pill-cyber">Bootstrap</span>
+                  <span class="tech-pill-cyber">MySQL</span>
+                  <span class="tech-pill-cyber">Computer Vision</span>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+                <!-- EDIT: Paste your GitHub repository URL in href below -->
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn-cyber btn-cyber-primary play-sound" aria-label="View on GitHub">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                  <span>[SOURCE_CODE]</span>
+                </a>
+                <a href="#contact" class="btn-cyber btn-cyber-outline play-sound">
+                  <span>[CONNECT_REGARDING_AI]</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: ACTIVITIES & HACKATHONS - MISSION DOSSIERS
+         ========================================================================== -->
+    <section class="section" id="activities">
+      <div class="container">
+        <div class="section-header hud-reveal">
+          <div class="section-tag">
+            <span>MODULE_04</span>
+            <span class="section-tag-badge">OPERATIONS</span>
+          </div>
+          <h2 class="section-title">HACKATHONS &amp; <span class="text-accent">MISSIONS</span></h2>
+        </div>
+
+        <div class="missions-grid">
+          <!-- Mission 1: Hack Secure X -->
+          <div class="cyber-panel mission-card hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="mission-badge-header">
+              <span class="mission-op-id">OP_01 // SEC</span>
+              <span class="mission-security-stamp">COMPLETED</span>
+            </div>
+            <div class="mission-icon-cyber" aria-hidden="true">🛡️</div>
+            <h3 class="mission-title-h3">Hack Secure X</h3>
+            <div style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--neon-cyan);">CYBERSECURITY HACKATHON</div>
+            <p class="mission-desc">
+              College-organized cybersecurity hackathon testing system defense, vulnerability probing, and threat mitigation under simulated real-world conditions.
+            </p>
+          </div>
+
+          <!-- Mission 2: Generative AI Hackathon -->
+          <div class="cyber-panel mission-card hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="mission-badge-header">
+              <span class="mission-op-id">OP_02 // AI_SPRINT</span>
+              <span class="mission-security-stamp">COMPLETED</span>
+            </div>
+            <div class="mission-icon-cyber" aria-hidden="true">🤖</div>
+            <h3 class="mission-title-h3">Generative AI Hackathon</h3>
+            <div style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--neon-violet);">GENAI CHALLENGE</div>
+            <p class="mission-desc">
+              High-intensity technical competition focused on rapid prototyping with Generative AI models, prompt optimization, and novel interactive applications.
+            </p>
+          </div>
+
+          <!-- Mission 3: GenAI Workshop -->
+          <div class="cyber-panel mission-card hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="mission-badge-header">
+              <span class="mission-op-id">OP_03 // TRAINING</span>
+              <span class="mission-security-stamp">COMPLETED</span>
+            </div>
+            <div class="mission-icon-cyber" aria-hidden="true">⚡</div>
+            <h3 class="mission-title-h3">GenAI Workshop</h3>
+            <div style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--neon-magenta);">TECHNICAL LAB</div>
+            <p class="mission-desc">
+              Intensive collegiate workshop covering generative model architectures, toolchains, API integrations, and hands-on application pipelines.
+            </p>
+          </div>
+
+          <!-- Mission 4: College Hackathon -->
+          <div class="cyber-panel mission-card hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="mission-badge-header">
+              <span class="mission-op-id">OP_04 // FULLSTACK</span>
+              <span class="mission-security-stamp">COMPLETED</span>
+            </div>
+            <div class="mission-icon-cyber" aria-hidden="true">🏆</div>
+            <h3 class="mission-title-h3">College Hackathon</h3>
+            <div style="font-family: var(--font-hud); font-size: 0.75rem; color: var(--neon-emerald);">ENGINEERING SPRINT</div>
+            <p class="mission-desc">
+              Collaborative university hackathon solving real-world software problem statements, executing agile sprints, and engineering modular prototypes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: INTERACTIVE CYBERDECK TERMINAL (EMBEDDED CLI)
+         ========================================================================== -->
+    <section class="section" id="terminal">
+      <div class="container">
+        <div class="section-header hud-reveal">
+          <div class="section-tag">
+            <span>MODULE_05</span>
+            <span class="section-tag-badge">INTERACTIVE_CLI</span>
+          </div>
+          <h2 class="section-title">COMMAND <span class="text-accent">TERMINAL</span></h2>
+        </div>
+
+        <div class="terminal-window hud-reveal">
+          <div class="terminal-titlebar">
+            <div class="terminal-traffic-lights">
+              <span class="traffic-dot dot-red"></span>
+              <span class="traffic-dot dot-yellow"></span>
+              <span class="traffic-dot dot-green"></span>
+            </div>
+            <span>car@cyberdeck:~ (Interactive Shell - Type 'help')</span>
+            <span>BASH_v5.2</span>
+          </div>
+
+          <div class="terminal-screen" id="terminal-screen-output">
+            <div class="terminal-output-line system">// CYBERDECK OS v4.0.2 - Tactical Shell Initialized.</div>
+            <div class="terminal-output-line system">// Type &apos;help&apos; for list of commands or &apos;hire&apos; for internship transmission.</div>
+            <div class="terminal-output-line accent">&gt; System ready. Awaiting operator input...</div>
+          </div>
+
+          <div style="padding: 12px 20px; background: rgba(0,0,0,0.5); border-top: 1px solid var(--border-cyber);">
+            <form id="terminal-cli-form" class="terminal-input-row" autocomplete="off">
+              <span class="terminal-prompt-user">anvith@cyberdeck:~$</span>
+              <input type="text" id="terminal-cli-input" class="terminal-cli-input" placeholder="Type a command (e.g. 'help', 'skills', 'projects', 'hire')..." spellcheck="false">
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: CONTACT - QUANTUM TRANSMISSION UPLINK
+         ========================================================================== -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="section-header hud-reveal">
+          <div class="section-tag">
+            <span>MODULE_06</span>
+            <span class="section-tag-badge">DIRECT_TRANSMISSION</span>
+          </div>
+          <h2 class="section-title">QUANTUM <span class="text-accent">UPLINK</span></h2>
+        </div>
+
+        <div class="uplink-hud-grid">
+          <!-- Left Column: Direct Communication Channels -->
+          <div class="cyber-panel hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="panel-header-bar">
+              <div class="panel-header-left">
+                <span class="panel-icon-dot"></span>
+                <span>COMMS_CHANNELS.CFG</span>
+              </div>
+              <span class="panel-security-tag">UNENCRYPTED_DIRECT</span>
+            </div>
+
+            <p style="color: var(--text-dim); margin-bottom: 24px;">
+              Looking for a dedicated software engineering or web development intern? Connect directly via email, phone, or LinkedIn.
+            </p>
+
+            <!-- Direct Links -->
+            <a href="mailto:chandirianvithreddy@gmail.com" class="uplink-channel-item play-sound">
+              <div class="uplink-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              </div>
+              <div>
+                <div class="uplink-label-small">Secure Mail</div>
+                <div class="uplink-val-bold">chandirianvithreddy@gmail.com</div>
+              </div>
+            </a>
+
+            <a href="tel:+919700161727" class="uplink-channel-item play-sound">
+              <div class="uplink-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+              </div>
+              <div>
+                <div class="uplink-label-small">Frequency (Phone)</div>
+                <div class="uplink-val-bold">+91 9700161727</div>
+              </div>
+            </a>
+
+            <div class="uplink-channel-item" style="cursor: default;">
+              <div class="uplink-icon-box" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              </div>
+              <div>
+                <div class="uplink-label-small">Base Coordinates</div>
+                <div class="uplink-val-bold">Hyderabad, Telangana, India</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Transmission Form with mailto -->
+          <div class="cyber-panel hud-reveal">
+            <div class="panel-bracket-tl" aria-hidden="true"></div>
+            <div class="panel-bracket-br" aria-hidden="true"></div>
+
+            <div class="panel-header-bar">
+              <div class="panel-header-left">
+                <span class="panel-icon-dot"></span>
+                <span>DISPATCH_TRANSMISSION.SH</span>
+              </div>
+              <span class="panel-security-tag">READY_TO_SEND</span>
+            </div>
+
+            <form id="contact-form" class="cyber-form" novalidate>
+              <div class="field-group">
+                <label for="contact-name" class="field-label">OPERATOR NAME <span>*</span></label>
+                <input type="text" id="contact-name" class="field-input" placeholder="e.g. Hiring Manager / Recruiter" required>
+              </div>
+
+              <div class="field-group">
+                <label for="contact-subject" class="field-label">TRANSMISSION SUBJECT <span>*</span></label>
+                <input type="text" id="contact-subject" class="field-input" placeholder="e.g. Software Engineer Internship Opportunity" required>
+              </div>
+
+              <div class="field-group">
+                <label for="contact-message" class="field-label">PAYLOAD MESSAGE <span>*</span></label>
+                <textarea id="contact-message" class="field-textarea" rows="4" placeholder="Hello Chandiri, we reviewed your dossier and would like to invite you..." required></textarea>
+              </div>
+
+              <div id="uplink-status-box" class="uplink-status-box" role="alert"></div>
+
+              <button type="submit" class="btn-cyber btn-cyber-primary play-sound" style="width: 100%;">
+                <span>[DISPATCH TRANSMISSION VIA EMAIL]</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================================================
+       TACTICAL FOOTER
+       ========================================================================== -->
+  <footer class="footer-cyber">
+    <div class="container footer-layout">
+      <div>
+        &copy; 2026 Chandiri Anvith Reddy &bull; B.Tech CSE &bull; VBIT Hyderabad.
+      </div>
+      <div>
+        // CYBERDECK OS &bull; ALL SYSTEMS OPERATIONAL
+      </div>
+      <a href="#hero" class="btn-cyber btn-cyber-outline play-sound" style="padding: 6px 16px; font-size: 0.78rem;">
+        <span>▲ TOP_OF_STACK</span>
+      </a>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       VANILLA JAVASCRIPT LOGIC
+       ========================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      /* ------------------------------------------------------------------------
+         1. NATIVE WEB AUDIO API CYBER SYNTHESIZER SOUND EFFECTS
+         ------------------------------------------------------------------------ */
+      let audioCtx = null;
+      let soundEnabled = true;
+      const audioToggleBtn = document.getElementById('audio-fx-toggle');
+      const audioStatusText = document.getElementById('audio-status-text');
+
+      function initAudio() {
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) audioCtx = new AudioContext();
+        }
+      }
+
+      function playCyberBlip(freq = 680, type = 'sine', duration = 0.08) {
+        if (!soundEnabled) return;
+        try {
+          initAudio();
+          if (!audioCtx) return;
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + duration);
+          gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + duration);
+        } catch (e) {
+          /* Fallback on audio restrictions */
+        }
+      }
+
+      if (audioToggleBtn) {
+        audioToggleBtn.addEventListener('click', function () {
+          soundEnabled = !soundEnabled;
+          audioToggleBtn.classList.toggle('active', soundEnabled);
+          if (audioStatusText) {
+            audioStatusText.textContent = soundEnabled ? 'AUDIO: ON' : 'AUDIO: OFF';
+          }
+          if (soundEnabled) playCyberBlip(880, 'sine', 0.1);
+        });
+      }
+
+      document.querySelectorAll('.play-sound, a, button').forEach(function (el) {
+        el.addEventListener('mouseenter', function () {
+          if (soundEnabled) playCyberBlip(520, 'sine', 0.04);
+        });
+        el.addEventListener('click', function () {
+          if (soundEnabled) playCyberBlip(820, 'triangle', 0.09);
+        });
+      });
+
+      /* ------------------------------------------------------------------------
+         2. LIVE DIGITAL HUD CLOCK (IST)
+         ------------------------------------------------------------------------ */
+      const hudClockEl = document.getElementById('live-hud-clock');
+      function updateClock() {
+        if (!hudClockEl) return;
+        const now = new Date();
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        const secs = String(now.getSeconds()).padStart(2, '0');
+        hudClockEl.innerHTML = `TIME: <strong>${hrs}:${mins}:${secs} IST</strong>`;
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      /* ------------------------------------------------------------------------
+         3. SCROLL PROGRESS & ACTIVE LINK HIGHLIGHTER
+         ------------------------------------------------------------------------ */
+      const scrollProgressBar = document.getElementById('scroll-progress');
+      const navLinks = document.querySelectorAll('.nav-item a, .mobile-nav-link');
+      const sections = document.querySelectorAll('section[id]');
+
+      function handleScroll() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        if (scrollProgressBar) {
+          scrollProgressBar.style.width = Math.min(progress, 100) + '%';
+        }
+
+        let currentId = '';
+        sections.forEach(function (sec) {
+          const top = sec.offsetTop - 140;
+          const height = sec.offsetHeight;
+          if (scrollTop >= top && scrollTop < top + height) {
+            currentId = sec.getAttribute('id');
+          }
+        });
+
+        navLinks.forEach(function (link) {
+          const href = link.getAttribute('href');
+          if (href === '#' + currentId) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      /* ------------------------------------------------------------------------
+         4. MOBILE HAMBURGER MENU
+         ------------------------------------------------------------------------ */
+      const mobileBtn = document.getElementById('mobile-hamburger');
+      const mobileDrawer = document.getElementById('mobile-menu-drawer');
+
+      if (mobileBtn && mobileDrawer) {
+        mobileBtn.addEventListener('click', function () {
+          const isOpen = mobileDrawer.classList.toggle('open');
+          mobileBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+          mobileDrawer.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        });
+
+        mobileDrawer.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            mobileDrawer.classList.remove('open');
+            mobileBtn.setAttribute('aria-expanded', 'false');
+            mobileDrawer.setAttribute('aria-hidden', 'true');
+          });
+        });
+      }
+
+      /* ------------------------------------------------------------------------
+         5. TYPING ROLE CYCLER
+         ------------------------------------------------------------------------ */
+      const roles = [
+        "Software Developer",
+        "Web Developer",
+        "AI & Cybersecurity Enthusiast",
+        "Continuous Learner"
+      ];
+      const typeTarget = document.getElementById('role-type-output');
+      let roleIdx = 0;
+      let charIdx = 0;
+      let isDeleting = false;
+
+      function typeCycle() {
+        if (!typeTarget) return;
+        const current = roles[roleIdx];
+        if (isDeleting) {
+          typeTarget.textContent = current.substring(0, charIdx - 1);
+          charIdx--;
+        } else {
+          typeTarget.textContent = current.substring(0, charIdx + 1);
+          charIdx++;
+        }
+
+        let delay = isDeleting ? 40 : 80;
+        if (!isDeleting && charIdx === current.length) {
+          delay = 1800;
+          isDeleting = true;
+        } else if (isDeleting && charIdx === 0) {
+          isDeleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          delay = 350;
+        }
+
+        setTimeout(typeCycle, delay);
+      }
+      setTimeout(typeCycle, 500);
+
+      /* ------------------------------------------------------------------------
+         6. STATS COUNT-UP & ENERGY BARS ANIMATION
+         ------------------------------------------------------------------------ */
+      const statElements = document.querySelectorAll('.stat-val');
+      const skillItems = document.querySelectorAll('.skill-reactor-item');
+      let statsDone = false;
+      let skillsDone = false;
+
+      function animateStats() {
+        if (statsDone) return;
+        statsDone = true;
+        statElements.forEach(function (el) {
+          const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 1600;
+          const start = performance.now();
+
+          function step(now) {
+            const progress = Math.min((now - start) / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            const val = Math.floor(target * ease);
+            el.textContent = val + suffix;
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            } else {
+              el.textContent = target + suffix;
+            }
+          }
+          requestAnimationFrame(step);
+        });
+      }
+
+      function animateEnergyBars() {
+        if (skillsDone) return;
+        skillsDone = true;
+        skillItems.forEach(function (item) {
+          const val = parseInt(item.getAttribute('data-value'), 10) || 0;
+          const theme = item.getAttribute('data-theme') || 'cyan';
+          const activeCellCount = Math.round(val / 10);
+          const cells = item.querySelectorAll('.power-cell');
+          cells.forEach(function (cell, idx) {
+            if (idx < activeCellCount) {
+              setTimeout(function () {
+                cell.classList.add(`active-${theme}`);
+              }, idx * 60);
+            }
+          });
+        });
+      }
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            if (entry.target.querySelector('.stat-val')) animateStats();
+            if (entry.target.querySelector('.skill-reactor-item')) animateEnergyBars();
+          }
+        });
+      }, { threshold: 0.15 });
+
+      document.querySelectorAll('.hud-reveal').forEach(function (el) {
+        observer.observe(el);
+      });
+
+      /* ------------------------------------------------------------------------
+         7. PARTICLE NETWORK BACKGROUND
+         ------------------------------------------------------------------------ */
+      const canvas = document.getElementById('particle-canvas');
+      if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const ctx = canvas.getContext('2d');
+        let width = 0;
+        let height = 0;
+        let particles = [];
+        const mouse = { x: null, y: null, radius: 140 };
+
+        window.addEventListener('mousemove', function (e) {
+          mouse.x = e.clientX;
+          mouse.y = e.clientY;
+        }, { passive: true });
+
+        window.addEventListener('mouseout', function () {
+          mouse.x = null;
+          mouse.y = null;
+        });
+
+        function resize() {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+          particles = [];
+          const count = width < 768 ? 35 : 70;
+          for (let i = 0; i < count; i++) {
+            particles.push({
+              x: Math.random() * width,
+              y: Math.random() * height,
+              vx: (Math.random() - 0.5) * 0.7,
+              vy: (Math.random() - 0.5) * 0.7,
+              size: Math.random() * 1.8 + 0.8
+            });
+          }
+        }
+
+        function drawLoop() {
+          ctx.clearRect(0, 0, width, height);
+
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.x < 0 || p.x > width) p.vx *= -1;
+            if (p.y < 0 || p.y > height) p.vy *= -1;
+
+            if (mouse.x !== null && mouse.y !== null) {
+              const dx = mouse.x - p.x;
+              const dy = mouse.y - p.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < mouse.radius) {
+                const force = (mouse.radius - dist) / mouse.radius;
+                p.x -= (dx / dist) * force * 1.2;
+                p.y -= (dy / dist) * force * 1.2;
+              }
+            }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.45)';
+            ctx.fill();
+
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dx = p.x - p2.x;
+              const dy = p.y - p2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 110) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.strokeStyle = `rgba(0, 240, 255, ${(1 - dist / 110) * 0.18})`;
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+              }
+            }
+          }
+
+          requestAnimationFrame(drawLoop);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+        drawLoop();
+      }
+
+      /* ------------------------------------------------------------------------
+         8. INTERACTIVE CYBERDECK TERMINAL (EMBEDDED CLI)
+         ------------------------------------------------------------------------ */
+      const cliForm = document.getElementById('terminal-cli-form');
+      const cliInput = document.getElementById('terminal-cli-input');
+      const cliOutput = document.getElementById('terminal-screen-output');
+      const openTerminalBtn = document.getElementById('open-terminal-btn');
+
+      if (openTerminalBtn) {
+        openTerminalBtn.addEventListener('click', function () {
+          const terminalEl = document.getElementById('terminal');
+          if (terminalEl) {
+            terminalEl.scrollIntoView({ behavior: 'smooth' });
+            if (cliInput) setTimeout(() => cliInput.focus(), 600);
+          }
+        });
+      }
+
+      const commands = {
+        help: "AVAILABLE COMMANDS:\n- about     : Display engineering bio\n- skills    : List technical proficiencies\n- projects  : Inspect featured AI trash classifier\n- missions  : List hackathons and workshops\n- contact   : View communication frequencies\n- hire      : Launch transmission for internship\n- clear     : Wipe terminal screen\n- matrix    : Trigger green matrix surge",
+        about: "CHANDIRI ANVITH REDDY: B.Tech CSE (2024-2028) at VBIT Ghatkesar, Hyderabad. Passionate about software/web development and AI.",
+        skills: "SKILLS:\n- Python: 80% | HTML/CSS: 85% | Problem Solving: 85%\n- SQL/MySQL: 75% | C/Java: 70% | C#: 65% | Node.js: 60%\n- Vibe Coding, GenAI, Bootstrap, English (Spoken & Written)",
+        projects: "FEATURED PROJECT: AI-Based Trash Classification Web App (90% accuracy, Team of 2, Python, Bootstrap, MySQL).",
+        missions: "MISSIONS:\n- Hack Secure X (Cybersecurity)\n- Generative AI Hackathon\n- GenAI Workshop\n- College Hackathon",
+        contact: "COMMUNICATION:\n- Email: chandirianvithreddy@gmail.com\n- Phone: +91 9700161727\n- Location: Hyderabad, Telangana, India",
+        hire: "INITIATING RECRUITMENT HANDSHAKE...\nStatus: Open to Summer 2026/2027 Internships! Scrolling to uplink...",
+        matrix: "WAKE UP, OPERATOR... THE MATRIX HAS YOU. FOLLOW THE WHITE RABBIT."
+      };
+
+      if (cliForm && cliInput && cliOutput) {
+        cliForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const cmd = cliInput.value.trim().toLowerCase();
+          if (!cmd) return;
+
+          // Echo user line
+          const userLine = document.createElement('div');
+          userLine.className = 'terminal-output-line';
+          userLine.innerHTML = `<span style="color:var(--neon-magenta)">anvith@cyberdeck:~$</span> ${escapeHtml(cmd)}`;
+          cliOutput.appendChild(userLine);
+
+          if (cmd === 'clear') {
+            cliOutput.innerHTML = '';
+          } else if (cmd === 'hire') {
+            const resp = document.createElement('div');
+            resp.className = 'terminal-output-line success';
+            resp.textContent = commands.hire;
+            cliOutput.appendChild(resp);
+            setTimeout(() => {
+              document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            }, 1000);
+          } else if (commands[cmd]) {
+            const resp = document.createElement('div');
+            resp.className = 'terminal-output-line';
+            resp.style.whiteSpace = 'pre-wrap';
+            resp.textContent = commands[cmd];
+            cliOutput.appendChild(resp);
+          } else {
+            const err = document.createElement('div');
+            err.className = 'terminal-output-line';
+            err.style.color = '#ff6b6b';
+            err.textContent = `Command not recognized: '${cmd}'. Type 'help' for tactical syntax.`;
+            cliOutput.appendChild(err);
+          }
+
+          cliInput.value = '';
+          cliOutput.scrollTop = cliOutput.scrollHeight;
+          if (soundEnabled) playCyberBlip(750, 'square', 0.05);
+        });
+      }
+
+      function escapeHtml(str) {
+        return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      }
+
+      /* ------------------------------------------------------------------------
+         9. CONTACT UPLINK TRANSMISSION VIA PREFILLED MAILTO
+         ------------------------------------------------------------------------ */
+      const contactForm = document.getElementById('contact-form');
+      const uplinkStatus = document.getElementById('uplink-status-box');
+
+      if (contactForm && uplinkStatus) {
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById('contact-name').value.trim();
+          const subject = document.getElementById('contact-subject').value.trim();
+          const message = document.getElementById('contact-message').value.trim();
+
+          if (!name || !subject || !message) {
+            uplinkStatus.className = 'uplink-status-box active';
+            uplinkStatus.style.background = 'rgba(255, 60, 60, 0.15)';
+            uplinkStatus.style.borderColor = '#ff4d4d';
+            uplinkStatus.style.color = '#ff4d4d';
+            uplinkStatus.textContent = '[ERROR: All payload parameters (Name, Subject, Message) are required.]';
+            return;
+          }
+
+          const target = 'chandirianvithreddy@gmail.com';
+          const fullSub = `[Uplink Transmission] ${subject} - from ${name}`;
+          const fullBody = `Hello Chandiri,\n\nName: ${name}\n\nMessage Payload:\n${message}\n\n--\nTransmitted via Cyberdeck Portfolio Uplink`;
+
+          const mailto = `mailto:${target}?subject=${encodeURIComponent(fullSub)}&body=${encodeURIComponent(fullBody)}`;
+
+          uplinkStatus.className = 'uplink-status-box active';
+          uplinkStatus.style.background = 'rgba(0, 255, 102, 0.12)';
+          uplinkStatus.style.borderColor = 'var(--neon-emerald)';
+          uplinkStatus.style.color = 'var(--neon-emerald)';
+          uplinkStatus.textContent = '[TRANSMISSION DISPATCHED: Launching secure mail client to chandirianvithreddy@gmail.com...]';
+
+          if (soundEnabled) playCyberBlip(1040, 'triangle', 0.2);
+
+          window.location.href = mailto;
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
